@@ -10,14 +10,14 @@ sc = SlackClient(slack_token)
 
 delay = 1 # 1 second delay between reading from firehose
 if sc.rtm_connect():
-    print("StarterBot connected and running!")
+    print "StarterBot connected and running!"
     while True:
         output_list = sc.rtm_read()
         if output_list and len(output_list) > 0:
             for output in output_list:
                 if output and 'text' in output and at_bot in output['text']:
                     # return text after the @ mention, whitespace removed
-                    print output['text']
+                    sc.api_call("chat.postMessage", as_user="true:", channel="#botland", text="hello")
         sleep(delay)
 else:
     print "Connection failed. Invalid Slack token or bot ID?"
